@@ -48,7 +48,7 @@ function single(t) {
 }
 
 function ffmpegArgs(p) {
-  const w = 1920
+  const w = 1080
   const destPath = dirName(p)
   const outName = fileName(p).split(' ').join('_') + '_compressed_w' + w
   const outFile = `${destPath}/${outName}.avif`
@@ -64,9 +64,10 @@ function ffmpegArgs(p) {
     '-vf',
     `scale=${w}:-1`,
     '-crf',
-    '0',
+    '8', // 0: lossless
     '-pix_fmt',
-    'yuv444p12le',
+    'yuv444p10le',
+    // 'yuv444p12le',
     outFile,
   ]
 }
