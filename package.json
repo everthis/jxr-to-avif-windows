@@ -2,5 +2,9 @@
   "dependencies": {
     "cross-spawn": "^7.0.3",
     "koa": "^2.15.3"
+  },
+  "scripts": {
+    "avif": "node ./compressAvif.js",
+    "jxr": "node ./jxrToCompressedAvif.js"
   }
 }
