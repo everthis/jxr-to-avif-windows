@@ -5,6 +5,7 @@
   },
   "scripts": {
     "avif": "node ./compressAvif.js",
-    "jxr": "node ./jxrToCompressedAvif.js"
+    "jxr": "node ./jxrToCompressedAvif.js",
+    "jxrConv": "node ./jxrToAvif.js"
   }
 }

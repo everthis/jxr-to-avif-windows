@@ -57,6 +57,38 @@ function single(t) {
   })
 }
 
+function singleConvert(t) {
+  return new Promise((res, rej) => {
+    const fn = fileName(t)
+    const args = [t, assetsDistDir + '/' + fn + '.avif']
+    const proc = spawn(binPath, args)
+    let stdout = '',
+      stderr = ''
+    proc.on('error', function (err) {
+      rej(err)
+    })
+    proc.stdout.on(
+      'data',
+      (onOut = function (data) {
+        stdout += data
+      })
+    )
+    proc.on('close', async (code, signal) => {
+      let err
+      if (code !== 0 || signal !== null) {
+        err = new Error('Command failed: ' + stderr)
+        err.code = code
+        err.signal = signal
+      }
+      console.log(stdout)
+      if (err) console.log('err: ', err)
+      else {
+        res()
+      }
+    })
+  })
+}
+
 function ffmpegArgs(p, outputDir) {
   const w = 1080
   // const destPath = dirName(p)
@@ -240,6 +272,7 @@ async function cleanDist() {
 
 module.exports = {
   single,
+  singleConvert,
   compress,
   srcJxrAssets,
   srcAvifAssets,
